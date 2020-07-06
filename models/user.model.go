@@ -1,14 +1,13 @@
 package models
 
-import (
-	"github.com/jinzhu/gorm"
-)
+import "time"
 
 type User struct {
-	gorm.Model
+	ID        uint      `json:"id" gorm:"primary_key"`
+	CreatedAt time.Time `json:"createdAt"`
 
-	Blocked   bool
-	Confirmed bool
-	Email     string
-	Username  string
+	Blocked   bool   `json:"blocked"`
+	Confirmed bool   `json:"confirmed"`
+	Email     string `json:"email"`
+	Username  string `json:"username"`
 }
