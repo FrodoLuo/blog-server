@@ -16,3 +16,19 @@ type Article struct {
 	Author    *User      `gorm:"foreignKey:AuthorID" gorm:"default:nil" json:"author"`
 	Comments  []*Comment `json:"comments"`
 }
+
+func GenerateEmptyArticle() *Article {
+	emptyArticle := &Article{
+		ID:        0,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+		Brief:     "",
+		Class:     "",
+		Content:   "",
+		Tags:      "",
+		Title:     "",
+		Author:    nil,
+		Comments:  make([]*Comment, 0),
+	}
+	return emptyArticle
+}

@@ -2,7 +2,6 @@ package services
 
 import (
 	"blog-server/models"
-	"fmt"
 	"os"
 	"os/user"
 	"path/filepath"
@@ -12,11 +11,6 @@ import (
 )
 
 var dbPool *gorm.DB
-
-func createIfNotExist(dirPath string, filePath string) {
-	if _, err = os.Stat(dirPath); os.IsNotExist(err) {
-	}
-}
 
 func initDatabase() {
 
@@ -30,7 +24,17 @@ func initDatabase() {
 		return filePath, dirPath
 	})()
 
-	fmt.Println(databasePath)
+	if !IsPathExist(databasePath) {
+		err := os.MkdirAll(databaseDirPath, os.ModePerm)
+		if err != nil {
+			panic(err)
+		}
+		_, err = os.Create(databasePath)
+		if err != nil {
+			panic(err)
+		}
+	}
+
 	db, err := gorm.Open("sqlite3", databasePath)
 	db.DB().SetMaxIdleConns(10)
 
