@@ -12,7 +12,8 @@ func main() {
 	routerGroup := ginInstance.Group("/api")
 
 	{
-		routerGroup.GET("/articles", articles.Get)
+		routerGroup.GET("/articles", articles.GetArticleList)
+		routerGroup.GET("/articles/:id", articles.GetCertainArticle)
 		routerGroup.POST("/articles", articles.Post)
 	}
 

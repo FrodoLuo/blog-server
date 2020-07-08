@@ -2,15 +2,21 @@ package services
 
 import (
 	"blog-server/models"
+	"fmt"
 )
 
-/*
-GetAllArticles method
-*/
-func GetAllArticles() []models.Article {
+func GetArticlesWithKeyword(page uint64, pageSize uint64, keyword string) []models.Article {
 	db := GetDB()
 	articles := make([]models.Article, 0)
-	db.Find(&articles).Omit("AuthorID")
+	fmt.Println(articles)
+	db.
+		Where("tags LIKE ?", "%"+keyword+"%").
+		Or("title LIKE ?", "%"+keyword+"%").
+		Offset(page * pageSize).
+		Limit(pageSize).
+		Find(&articles)
+	fmt.Println(articles)
+
 	return articles
 }
 
