@@ -1,7 +1,6 @@
 package articles
 
 import (
-	"blog-server/models"
 	"blog-server/services"
 	"fmt"
 	"strconv"
@@ -25,13 +24,13 @@ func GetArticleList(ctx *gin.Context) {
 }
 
 func Post(ctx *gin.Context) {
-	targetArticle := models.Article{}
+	targetArticle := services.NewArticleParams{}
 	err := ctx.BindJSON(&targetArticle)
-	services.CreateArticle(&targetArticle)
+	savedArticle := services.CreateArticle(&targetArticle)
 	if err != nil {
 		ctx.JSON(415, err)
 	}
-	ctx.JSON(200, targetArticle)
+	ctx.JSON(200, savedArticle)
 }
 
 func GetCertainArticle(ctx *gin.Context) {
