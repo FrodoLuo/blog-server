@@ -2,22 +2,29 @@ package services
 
 import (
 	"blog-server/models"
-	"fmt"
 )
 
 func GetArticlesWithKeyword(page uint64, pageSize uint64, keyword string) []models.Article {
 	db := GetDB()
 	articles := make([]models.Article, 0)
-	fmt.Println(articles)
 	db.
 		Where("tags LIKE ?", "%"+keyword+"%").
 		Or("title LIKE ?", "%"+keyword+"%").
 		Offset(page * pageSize).
 		Limit(pageSize).
 		Find(&articles)
-	fmt.Println(articles)
 
 	return articles
+}
+
+func GetArticleWithID(id uint64) *models.Article {
+	db := GetDB()
+	article := models.GenerateEmptyArticle()
+	db.
+		Where("id = ?", id).
+		Find(&article)
+
+	return article
 }
 
 /*
@@ -31,6 +38,7 @@ func CreateArticle(articleParams *NewArticleParams) *models.Article {
 	articleToSave.Title = articleParams.Title
 	articleToSave.Tags = articleParams.Tags
 	articleToSave.Brief = articleParams.Brief
+	articleToSave.AuthorID = articleParams.AuthorID
 
 	if db.NewRecord(&articleToSave) {
 		// articleToSave.AuthorID = 1

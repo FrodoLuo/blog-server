@@ -13,6 +13,7 @@ type Article struct {
 	Content   string     `json:"content"`
 	Tags      string     `json:"tags"`
 	Title     string     `json:"title"`
+	AuthorID  uint       `gorm:"foreignKey" json:"authorId"`
 	Author    *User      `gorm:"foreignKey:AuthorID" gorm:"default:nil" json:"author"`
 	Comments  []*Comment `json:"comments"`
 }
@@ -27,7 +28,7 @@ func GenerateEmptyArticle() *Article {
 		Content:   "",
 		Tags:      "",
 		Title:     "",
-		Author:    nil,
+		AuthorID:  0,
 		Comments:  make([]*Comment, 0),
 	}
 	return emptyArticle

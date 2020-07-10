@@ -2,7 +2,6 @@ package articles
 
 import (
 	"blog-server/services"
-	"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -34,6 +33,10 @@ func Post(ctx *gin.Context) {
 }
 
 func GetCertainArticle(ctx *gin.Context) {
-	fmt.Println(ctx.Params.Get("id"))
-	ctx.JSON(200, "")
+	id, err := strconv.ParseUint(ctx.Param("id"), 10, 0)
+	if err != nil {
+		ctx.AbortWithStatusJSON(400, err)
+		return
+	}
+	ctx.JSON(200, services.GetArticleWithID(id))
 }
