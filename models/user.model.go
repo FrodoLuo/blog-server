@@ -10,4 +10,5 @@ type User struct {
 	Confirmed bool   `json:"confirmed"`
 	Email     string `json:"email"`
 	Username  string `json:"username"`
+	Type      uint   `json:"type"`
 }

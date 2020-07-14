@@ -8,6 +8,8 @@ func GetArticlesWithKeyword(page uint64, pageSize uint64, keyword string) []mode
 	db := GetDB()
 	articles := make([]models.Article, 0)
 	db.
+		Preload("Author").
+		Select("title, updatedAt, author, brief, tags").
 		Where("tags LIKE ?", "%"+keyword+"%").
 		Or("title LIKE ?", "%"+keyword+"%").
 		Offset(page * pageSize).

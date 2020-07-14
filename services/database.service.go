@@ -40,6 +40,9 @@ func initDatabase() {
 
 	db.AutoMigrate(&models.Article{})
 	db.AutoMigrate(&models.User{})
+	db.AutoMigrate(&models.Comment{})
+	db.AutoMigrate(&models.Config{})
+	db.AutoMigrate(&models.Media{})
 
 	dbPool = db
 	if err != nil {
