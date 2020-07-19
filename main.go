@@ -13,7 +13,8 @@ func main() {
 
 	{
 		routerGroup.GET("/articles", articles.GetArticleList)
-		routerGroup.GET("/articles/:id", articles.GetCertainArticle)
+		routerGroup.GET("/articles/detail/:id", articles.GetCertainArticle)
+		routerGroup.GET("/articles/count", articles.CountArticle)
 		routerGroup.POST("/articles", articles.Post)
 	}
 

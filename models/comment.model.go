@@ -9,4 +9,5 @@ type Comment struct {
 	Nickname  string    `json:"nickname"`
 	Content   string    `json:"content"`
 	Permitted bool      `json:"permitted"`
+	ArticleID uint      `json:"articleId"`
 }

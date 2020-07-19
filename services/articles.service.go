@@ -9,9 +9,10 @@ func GetArticlesWithKeyword(page uint64, pageSize uint64, keyword string) []mode
 	articles := make([]models.Article, 0)
 	db.
 		Preload("Author").
-		Select("title, updatedAt, author, brief, tags").
-		Where("tags LIKE ?", "%"+keyword+"%").
-		Or("title LIKE ?", "%"+keyword+"%").
+		Preload("Comments").
+		Where("Tags LIKE ?", "%"+keyword+"%").
+		Or("Title LIKE ?", "%"+keyword+"%").
+		Order("updated_at DESC", true).
 		Offset(page * pageSize).
 		Limit(pageSize).
 		Find(&articles)
@@ -23,10 +24,23 @@ func GetArticleWithID(id uint64) *models.Article {
 	db := GetDB()
 	article := models.GenerateEmptyArticle()
 	db.
+		Preload("Author").
+		Preload("Comments").
 		Where("id = ?", id).
 		Find(&article)
 
 	return article
+}
+
+func CountArticlesWithKeyword(keyword string) uint {
+	db := GetDB()
+	var count uint
+	db.
+		Model(&models.Article{}).
+		Where("Tags LIKE ?", "%"+keyword+"%").
+		Or("Title LIKE ?", "%"+keyword+"%").
+		Count(&count)
+	return count
 }
 
 /*

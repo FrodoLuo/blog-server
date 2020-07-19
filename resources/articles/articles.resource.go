@@ -40,3 +40,8 @@ func GetCertainArticle(ctx *gin.Context) {
 	}
 	ctx.JSON(200, services.GetArticleWithID(id))
 }
+
+func CountArticle(ctx *gin.Context) {
+	keyword := ctx.DefaultQuery("keyword", "")
+	ctx.JSON(200, services.CountArticlesWithKeyword(keyword))
+}

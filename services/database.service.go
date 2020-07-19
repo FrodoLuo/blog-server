@@ -20,7 +20,7 @@ func initDatabase() {
 			panic(err)
 		}
 		dirPath := filepath.Join(currentInfo.HomeDir, "assets")
-		filePath := filepath.Join(dirPath, "database.db")
+		filePath := filepath.Join(dirPath, "data.db")
 		return filePath, dirPath
 	})()
 
