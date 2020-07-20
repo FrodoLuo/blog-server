@@ -3,6 +3,7 @@ package main
 import (
 	"blog-server/resources/articles"
 	"blog-server/resources/comments"
+	"blog-server/resources/configs"
 	"blog-server/resources/users"
 
 	"github.com/gin-gonic/gin"
@@ -21,6 +22,12 @@ func main() {
 
 	{
 		routerGroup.POST("/comments", comments.Post)
+	}
+
+	{
+		routerGroup.GET("/configs", configs.GetAll)
+		routerGroup.GET("/configs/detail/:title", configs.Get)
+		routerGroup.POST("/configs", configs.Post)
 	}
 
 	{
