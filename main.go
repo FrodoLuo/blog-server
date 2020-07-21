@@ -1,6 +1,8 @@
 package main
 
 import (
+	"blog-server/middlewares"
+	"blog-server/models"
 	"blog-server/resources/articles"
 	"blog-server/resources/comments"
 	"blog-server/resources/configs"
@@ -11,27 +13,37 @@ import (
 
 func main() {
 	ginInstance := gin.Default()
-	routerGroup := ginInstance.Group("/api")
+	publicRoutes := ginInstance.Group("/api")
+	authRequiredRoutes := ginInstance.
+		Group("/api").
+		Use(middlewares.AuthorizationMiddleware(
+			[]models.UserRole{
+				models.REGISTERED,
+				models.ADMIN,
+			},
+		))
 
 	{
-		routerGroup.GET("/articles", articles.GetArticleList)
-		routerGroup.GET("/articles/detail/:id", articles.GetCertainArticle)
-		routerGroup.GET("/articles/count", articles.CountArticle)
-		routerGroup.POST("/articles", articles.Post)
+		publicRoutes.GET("/articles", articles.GetArticleList)
+		publicRoutes.GET("/articles/detail/:id", articles.GetCertainArticle)
+		publicRoutes.GET("/articles/count", articles.CountArticle)
+
+		authRequiredRoutes.POST("/articles", articles.Post)
 	}
 
 	{
-		routerGroup.POST("/comments", comments.Post)
+		publicRoutes.POST("/comments", comments.Post)
 	}
 
 	{
-		routerGroup.GET("/configs", configs.GetAll)
-		routerGroup.GET("/configs/detail/:title", configs.Get)
-		routerGroup.POST("/configs", configs.Post)
+		publicRoutes.GET("/configs", configs.GetAll)
+		publicRoutes.GET("/configs/detail/:title", configs.Get)
+
+		authRequiredRoutes.POST("/configs", configs.Post)
 	}
 
 	{
-		routerGroup.GET("/users/:id", users.Get)
+		publicRoutes.GET("/users/:id", users.Get)
 	}
 
 	ginInstance.Run("127.0.0.1:3100")

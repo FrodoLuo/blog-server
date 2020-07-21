@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Post method of Comment
 func Post(ctx *gin.Context) {
 	commentToSave := models.Comment{}
 	ctx.BindJSON(&commentToSave)

@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Get Get method, return a config with given title or throw 404
 func Get(ctx *gin.Context) {
 	title := ctx.Params.ByName("title")
 	config := services.GetConfigByTitle(title)
@@ -18,12 +19,14 @@ func Get(ctx *gin.Context) {
 	}
 }
 
+// GetAll Get method, return all Configs
 func GetAll(ctx *gin.Context) {
 	configs := services.GetAllConfig()
 
 	ctx.JSON(200, configs)
 }
 
+// Post Post method, create a config
 func Post(ctx *gin.Context) {
 	config := models.Config{}
 

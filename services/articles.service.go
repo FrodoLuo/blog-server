@@ -44,24 +44,12 @@ func CountArticlesWithKeyword(keyword string) uint {
 }
 
 /*
-CreateArticle method to create and return the entity of the a article
+UpdateOrCreateArticle method to create and return the entity of the a article
 */
-func CreateArticle(articleToSave *models.Article) *models.Article {
-	db := GetDB()
-	if db.NewRecord(&articleToSave) {
-		// articleToSave.AuthorID = 1
-		db.
-			Preload("Author").
-			Create(&articleToSave).
-			Find(&articleToSave)
-	}
+func UpdateOrCreateArticle(articleToSave models.Article) models.Article {
+	GetDB().
+		Preload("Author").
+		Save(&articleToSave).
+		Find(&articleToSave)
 	return articleToSave
-}
-
-type NewArticleParams struct {
-	Content  string `default:""`
-	Title    string `default:""`
-	Brief    string `default:""`
-	Tags     string `default:"Tech"`
-	AuthorID uint
 }

@@ -13,5 +13,19 @@ type User struct {
 	Username string `json:"username"`
 	Password string `json:"-"`
 
-	Type uint `json:"type"`
+	Type UserRole `json:"type"`
 }
+
+/*
+UserRole users roles
+*/
+type UserRole = int
+
+/*
+user roles for the user
+*/
+const (
+	EVERYONE   UserRole = iota
+	REGISTERED UserRole = iota
+	ADMIN      UserRole = iota
+)
