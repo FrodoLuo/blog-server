@@ -23,7 +23,15 @@ func main() {
 			},
 		))
 
-	{
+	adminRequiredRoutes := ginInstance.
+		Group("/api").
+		Use(middlewares.AuthorizationMiddleware(
+			[]models.UserRole{
+				models.ADMIN,
+			},
+		))
+
+	{ // articles
 		publicRoutes.GET("/articles", articles.GetArticleList)
 		publicRoutes.GET("/articles/detail/:id", articles.GetCertainArticle)
 		publicRoutes.GET("/articles/count", articles.CountArticle)
@@ -31,19 +39,22 @@ func main() {
 		authRequiredRoutes.POST("/articles", articles.Post)
 	}
 
-	{
+	{ // comments
 		publicRoutes.POST("/comments", comments.Post)
 	}
 
-	{
+	{ // configs
 		publicRoutes.GET("/configs", configs.GetAll)
 		publicRoutes.GET("/configs/detail/:title", configs.Get)
 
 		authRequiredRoutes.POST("/configs", configs.Post)
 	}
 
-	{
-		publicRoutes.GET("/users/:id", users.Get)
+	{ // users
+		publicRoutes.POST("/users", users.Post)
+		publicRoutes.GET("/users", users.GetWithToken)
+
+		adminRequiredRoutes.GET("/users/:id", users.Get)
 	}
 
 	ginInstance.Run("127.0.0.1:3100")

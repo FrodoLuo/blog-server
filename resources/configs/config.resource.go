@@ -11,12 +11,12 @@ import (
 func Get(ctx *gin.Context) {
 	title := ctx.Params.ByName("title")
 	config := services.GetConfigByTitle(title)
-
 	if config.ID == 0 {
-		ctx.JSON(404, nil)
-	} else {
-		ctx.JSON(200, config)
+		ctx.AbortWithStatus(404)
+		return
 	}
+
+	ctx.JSON(200, config)
 }
 
 // GetAll Get method, return all Configs
