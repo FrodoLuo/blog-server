@@ -1,4 +1,4 @@
-package main
+package router
 
 import (
 	"blog-server/middlewares"

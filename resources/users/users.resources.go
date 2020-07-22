@@ -45,5 +45,6 @@ func Post(ctx *gin.Context) {
 		return
 	}
 	ctx.Header("Set-Cookie", "token="+token+"; httponly")
+	ctx.Header("Authorization", token)
 	ctx.Status(204)
 }

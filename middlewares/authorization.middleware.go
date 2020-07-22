@@ -23,6 +23,7 @@ func AuthorizationMiddleware(allowedRoles []models.UserRole) gin.HandlerFunc {
 			return
 		}
 		if contains(allowedRoles, user.Type) {
+			ctx.Set("user", user)
 			ctx.Next()
 		} else {
 			ctx.AbortWithStatus(403)
