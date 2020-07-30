@@ -22,13 +22,19 @@ func GetUserByToken(token string) models.User {
 	return user
 }
 
-func UpdateAuth(email string, password string) (token string, status int) {
+func UpdateAuth(email string, password string, key string) (token string, status int) {
 	db := GetDB()
 	user := models.User{}
 
+	decipheredPass, err := Decipher(password, key)
+
+	if err != nil {
+		return "", 401
+	}
+
 	db.
 		Where("email = ?", email).
-		Where("password = ?", password).
+		Where("password = ?", decipheredPass).
 		First(&user)
 
 	if user.ID == 0 {

@@ -37,9 +37,10 @@ func GetWithToken(ctx *gin.Context) {
 func Post(ctx *gin.Context) {
 	email := ctx.PostForm("email")
 	password := ctx.PostForm("password")
+	key := ctx.PostForm("key")
 	fmt.Println(email)
 	fmt.Println(password)
-	token, status := services.UpdateAuth(email, password)
+	token, status := services.UpdateAuth(email, password, key)
 	if status != 0 {
 		ctx.AbortWithStatus(status)
 		return
