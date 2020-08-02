@@ -38,7 +38,7 @@ func UpdateAuth(email string, password string, key string) (token string, status
 		First(&user)
 
 	if user.ID == 0 {
-		return "", 403
+		return "", 401
 	}
 	token = generateToken(email)
 	user.Token = token
