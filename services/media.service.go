@@ -7,7 +7,6 @@ import (
 	"mime/multipart"
 	"os"
 	"os/user"
-	"path"
 	"path/filepath"
 )
 
@@ -36,7 +35,7 @@ func SaveMedia(fileHeader *multipart.FileHeader, tag string, description string,
 	}
 
 	media := models.Media{
-		Source:         path.Join("/files", fileHeader.Filename),
+		Source:         UploadToCOS(fileHeader),
 		Tag:            tag,
 		Description:    description,
 		OrderReference: order,

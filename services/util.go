@@ -1,10 +1,17 @@
 package services
 
 import (
+	"context"
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/base64"
+	"mime/multipart"
+	"net/url"
 	"os"
+	"path"
+
+	"github.com/qiniu/api.v7/v7/auth"
+	"github.com/qiniu/api.v7/v7/storage"
 )
 
 /*
@@ -37,4 +44,40 @@ func Decipher(ciphered string, key string) (string, error) {
 	mode.CryptBlocks(des, cipheredBytes)
 	//解填充
 	return string(des), nil
+}
+
+func UploadToCOS(fileHeader *multipart.FileHeader) string {
+	accessKey := os.Getenv("QINIU_ACCESS_KEY")
+	secretKey := os.Getenv("QINIU_SECRET_KEY")
+	bucket := os.Getenv("QINIU_BUCKET")
+	cosDomain := os.Getenv("BLOG_COS_DOMAIN")
+
+	file, _ := fileHeader.Open()
+
+	putPolicy := storage.PutPolicy{
+		Scope: bucket,
+	}
+
+	mac := auth.New(accessKey, secretKey)
+	putPolicy.Expires = 7200
+	upToken := putPolicy.UploadToken(mac)
+
+	config := storage.Config{}
+
+	config.Zone = &storage.ZoneHuadong
+	config.UseHTTPS = false
+	config.UseCdnDomains = false
+
+	formUploader := storage.NewFormUploader(&config)
+	ret := storage.PutRet{}
+
+	err := formUploader.Put(context.Background(), &ret, upToken, fileHeader.Filename, file, fileHeader.Size, nil)
+
+	if err != nil {
+		panic(err)
+	}
+
+	u, _ := url.Parse(cosDomain)
+	u.Path = path.Join(u.Path, ret.Key)
+	return u.String()
 }

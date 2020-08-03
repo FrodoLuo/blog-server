@@ -56,6 +56,9 @@ github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e h1:fD57ERR4JtEqsWb
 github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e/go.mod h1:zD1mROLANZcx1PVRCS0qkT7pwLkGfwJo4zjcN/Tysno=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
+github.com/qiniu/api.v7 v7.2.5+incompatible h1:6KKaGt7MbFzVGSniwzv7qsM/Qv0or4SkRJfmak8LqZE=
+github.com/qiniu/api.v7/v7 v7.5.0 h1:DY6NrIp6FZ1GP4Roc9hRnO2m+OLzASYNnvz5Mbgw1rk=
+github.com/qiniu/api.v7/v7 v7.5.0/go.mod h1:VE5oC5rkE1xul0u1S2N0b2Uxq9/6hZzhyqjgK25XDcM=
 github.com/silenceper/gowatch v0.0.0-20200624073703-8e473a9db258 h1:YDq0wv8f2wxRHfQoPLcvf9DuWwU6U5mtwlh7hd+zkEw=
 github.com/silenceper/gowatch v0.0.0-20200624073703-8e473a9db258/go.mod h1:RM2YEzeHvoNuLpUdfJwS2o4DDJaaKOFcOvkWYXUA290=
 github.com/silenceper/log v0.0.0-20171204144354-e5ac7fa8a76a h1:COf2KvPmardI1M8p2fhHsXlFS2EXSQygbGgcDYBI9Wc=
