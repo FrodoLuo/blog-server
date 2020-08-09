@@ -12,3 +12,23 @@ func CreateComment(commentToSave *models.Comment) {
 		db.Create(&commentToSave)
 	}
 }
+
+func GetComments(page uint, pageSize uint) []models.Comment {
+	comments := make([]models.Comment, 0)
+	GetDB().
+		Preload("Article").
+		Offset(page * pageSize).
+		Limit(pageSize).
+		Find(&comments)
+
+	return comments
+}
+
+func CountComments() uint {
+	var count uint
+	GetDB().
+		Model(&models.Comment{}).
+		Count(&count)
+
+	return count
+}

@@ -10,12 +10,7 @@ import (
 
 // GetArticleList Get method, GetArticleList return the list of articles with given page and pagesize
 func GetArticleList(ctx *gin.Context) {
-	page, err := strconv.ParseUint(ctx.DefaultQuery("page", "0"), 10, 0)
-	if err != nil {
-		ctx.AbortWithStatusJSON(400, err)
-		return
-	}
-	pageSize, err := strconv.ParseUint(ctx.DefaultQuery("pageSize", "10"), 10, 0)
+	page, pageSize, err := services.ParsePageAndSize(ctx)
 	if err != nil {
 		ctx.AbortWithStatusJSON(400, err)
 		return

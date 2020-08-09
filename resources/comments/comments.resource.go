@@ -23,3 +23,17 @@ func Post(ctx *gin.Context) {
 	services.CreateComment(&commentToSave)
 	ctx.JSON(200, commentToSave)
 }
+
+func Get(ctx *gin.Context) {
+	page, pageSize, err := services.ParsePageAndSize(ctx)
+	if err != nil {
+		ctx.AbortWithStatusJSON(400, err)
+		return
+	}
+	comments := services.GetComments(uint(page), uint(pageSize))
+	ctx.JSON(200, comments)
+}
+
+func Count(ctx *gin.Context) {
+	ctx.JSON(200, services.CountComments())
+}

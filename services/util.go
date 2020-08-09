@@ -9,7 +9,9 @@ import (
 	"net/url"
 	"os"
 	"path"
+	"strconv"
 
+	"github.com/gin-gonic/gin"
 	"github.com/qiniu/api.v7/v7/auth"
 	"github.com/qiniu/api.v7/v7/storage"
 )
@@ -22,6 +24,18 @@ func IsPathExist(path string) bool {
 		return false
 	}
 	return true
+}
+
+func ParsePageAndSize(ctx *gin.Context) (page uint64, pageSize uint64, err error) {
+	page, err = strconv.ParseUint(ctx.DefaultQuery("page", "0"), 10, 0)
+	if err != nil {
+		return 0, 0, err
+	}
+	pageSize, err = strconv.ParseUint(ctx.DefaultQuery("pageSize", "10"), 10, 0)
+	if err != nil {
+		return 0, 0, err
+	}
+	return page, pageSize, nil
 }
 
 /*

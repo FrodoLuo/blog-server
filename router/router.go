@@ -43,6 +43,8 @@ func BindRouters(ginInstance *gin.Engine) {
 	}
 
 	{ // comments
+		publicRoutes.GET("/comments", comments.Get)
+		publicRoutes.GET("/comments/count", comments.Count)
 		publicRoutes.POST("/comments", comments.Post)
 	}
 

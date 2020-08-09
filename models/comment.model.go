@@ -10,4 +10,5 @@ type Comment struct {
 	Content   string    `json:"content"`
 	Permitted bool      `json:"permitted"`
 	ArticleID uint      `json:"articleId"`
+	Article   Article   `gorm:"foreignKey:ArticleID" json:"article"`
 }
