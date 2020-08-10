@@ -1,5 +1,10 @@
 language: go
 
+addons:
+  apt:
+    packages:
+    - sshpass
+
 go:
 - 1.14.x
 
