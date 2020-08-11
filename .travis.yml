@@ -6,9 +6,10 @@ addons:
     - sshpass
 
 env:
-  - GIN_MODE=release
-  - GOOS=linux
-  - GOARCH=amd64
+  global:
+    - GIN_MODE=release
+    - GOOS=linux
+    - GOARCH=amd64
 go:
 - 1.14.x
 
