@@ -5,6 +5,10 @@ addons:
     packages:
     - sshpass
 
+env:
+  - GIN_MODE=release
+  - GOOS=linux
+  - GOARCH=amd64
 go:
 - 1.14.x
 
@@ -12,4 +16,4 @@ script:
   - go build main.go
 
 after_success:
-  "`sshpass -p $TARGET_PASS scp ./main $TARGET_USER@$TARGET_HOST:/root/blog-server`"
+  - "`sshpass -p $TARGET_PASS scp ./main $TARGET_USER@$TARGET_HOST:/root/blog-server`"
