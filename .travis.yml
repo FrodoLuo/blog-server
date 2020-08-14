@@ -4,6 +4,9 @@ addons:
   apt:
     packages:
     - sshpass
+  ssh_known_hosts:
+    - frodoluo.ink
+    - 119.23.200.164
 
 env:
   global:
