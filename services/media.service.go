@@ -14,11 +14,19 @@ func GetMediaByTag(tag string, page uint, pageSize uint) []models.Media {
 	db := GetDB()
 	media := make([]models.Media, 0)
 	db.
-		Where("tag = ?", tag).
+		Where("tag LIKE ?", "%"+tag+"%").
 		Offset(page * pageSize).
 		Limit(pageSize).
 		Find(&media)
 	return media
+}
+
+func CountMedia() uint {
+	var count uint
+	GetDB().
+		Model(&models.Media{}).
+		Count(&count)
+	return count
 }
 
 func SaveMedia(fileHeader *multipart.FileHeader, tag string, description string, order uint) models.Media {

@@ -16,6 +16,8 @@ func BindRouters(ginInstance *gin.Engine) {
 
 	ginInstance.MaxMultipartMemory = 8 << 20
 
+	ginInstance.Static("/admin", "./public")
+
 	publicRoutes := ginInstance.Group("/api")
 	authRequiredRoutes := ginInstance.
 		Group("/api").
@@ -64,6 +66,7 @@ func BindRouters(ginInstance *gin.Engine) {
 
 	{ // media
 		publicRoutes.GET("/media", media.Get)
+		publicRoutes.GET("/media/count", media.Count)
 
 		adminRequiredRoutes.POST("/media", media.Post)
 	}

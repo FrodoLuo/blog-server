@@ -8,16 +8,11 @@ addons:
     - frodoluo.ink
     - 119.23.200.164
 
-env:
-  global:
-    - GIN_MODE=release
-    - GOOS=linux
-    - GOARCH=amd64
 go:
 - 1.14.x
 
 script:
-  - go build main.go
+  - ./build.sh
 
 after_success:
-  - sshpass -p $TARGET_PASS scp ./main $TARGET
+  - sshpass -p $TARGET_PASS scp ./dist.tar $TARGET

@@ -9,12 +9,7 @@ import (
 
 func Get(ctx *gin.Context) {
 	tag := ctx.Query("tag")
-	page, err := strconv.Atoi(ctx.DefaultQuery("page", "0"))
-	if err != nil {
-		ctx.AbortWithStatusJSON(400, err)
-		return
-	}
-	pageSize, err := strconv.Atoi(ctx.DefaultQuery("pageSize", "10"))
+	page, pageSize, err := services.ParsePageAndSize(ctx)
 	if err != nil {
 		ctx.AbortWithStatusJSON(400, err)
 		return
@@ -41,4 +36,8 @@ func Post(ctx *gin.Context) {
 
 	savedMedia := services.SaveMedia(file, tag, description, uint(order))
 	ctx.JSON(200, savedMedia)
+}
+
+func Count(ctx *gin.Context) {
+	ctx.JSON(200, services.CountMedia())
 }
