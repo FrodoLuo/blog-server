@@ -14,4 +14,4 @@ cp -r dist/blog-cms ../dist/public
 
 cd ..
 
-tar -czf dist
+tar -czf dist.tar ./dist
