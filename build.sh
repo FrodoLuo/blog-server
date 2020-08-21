@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 export GIN_MODE=release
 export GOOS=linux
 export GOARCH=amd64
