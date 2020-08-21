@@ -9,7 +9,10 @@ addons:
     - 119.23.200.164
 
 go:
-- 1.14.x
+  - 1.14.x
+
+node_js:
+  - 12
 
 script:
   - ./build.sh
