@@ -10,7 +10,7 @@ cd ui && npm install
 
 npm run build:prod
 
-cp -r dist/blog-cms/* ../dist/public
+cp -r dist/blog-cms ../dist/public
 
 cd ..
 
