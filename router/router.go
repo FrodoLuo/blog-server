@@ -8,6 +8,7 @@ import (
 	"blog-server/resources/configs"
 	"blog-server/resources/media"
 	"blog-server/resources/users"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,7 +17,12 @@ func BindRouters(ginInstance *gin.Engine) {
 
 	ginInstance.MaxMultipartMemory = 8 << 20
 
-	ginInstance.Static("/admin", "./public")
+	cmsRoot := os.Getenv("BLOG_CMS_ROOT")
+	if cmsRoot == "" {
+		cmsRoot = "./public"
+	}
+
+	ginInstance.Static("/admin", cmsRoot)
 
 	publicRoutes := ginInstance.Group("/api")
 	authRequiredRoutes := ginInstance.
