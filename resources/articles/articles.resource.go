@@ -26,7 +26,12 @@ func Post(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(415, err)
 	}
-	savedArticle := services.UpdateOrCreateArticle(articleToSave)
+	userID := ctx.Value("userID").(uint)
+	if articleToSave.ID != 0 && userID != articleToSave.AuthorID {
+		ctx.AbortWithStatus(403)
+		return
+	}
+	savedArticle := services.UpdateOrCreateArticle(articleToSave, uint(userID))
 	ctx.JSON(200, savedArticle)
 }
 

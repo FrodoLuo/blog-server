@@ -15,6 +15,7 @@ func GetMediaByTag(tag string, page uint, pageSize uint) []models.Media {
 	media := make([]models.Media, 0)
 	db.
 		Where("tag LIKE ?", "%"+tag+"%").
+		Order("ID DESC").
 		Offset(page * pageSize).
 		Limit(pageSize).
 		Find(&media)

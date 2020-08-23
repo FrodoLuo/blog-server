@@ -46,7 +46,10 @@ func CountArticlesWithKeyword(keyword string) uint {
 /*
 UpdateOrCreateArticle method to create and return the entity of the a article
 */
-func UpdateOrCreateArticle(articleToSave models.Article) models.Article {
+func UpdateOrCreateArticle(articleToSave models.Article, userID uint) models.Article {
+	if articleToSave.AuthorID == 0 {
+		articleToSave.AuthorID = userID
+	}
 	GetDB().
 		Preload("Author").
 		Save(&articleToSave).
