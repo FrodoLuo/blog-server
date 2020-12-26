@@ -5,9 +5,7 @@ import "blog-server/models"
 func CreateConfig(configToSave *models.Config) *models.Config {
 	db := GetDB()
 
-	if db.NewRecord(&configToSave) {
-		db.Create(&configToSave)
-	}
+	db.Save(&configToSave)
 	return configToSave
 }
 

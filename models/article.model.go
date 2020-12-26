@@ -10,6 +10,7 @@ type Article struct {
 	UpdatedAt time.Time  `json:"updatedAt"`
 	Brief     string     `json:"brief"`
 	Class     string     `json:"class"`
+	Cover     string     `json:"cover" gorm:"default:''"`
 	Content   string     `json:"content"`
 	Tags      string     `json:"tags"`
 	Title     string     `json:"title"`
