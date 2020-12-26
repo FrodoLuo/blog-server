@@ -4,7 +4,7 @@ export GOOS=linux
 export GOARCH=amd64
 go build -o ./dist/main main.go
 
-git submodule update ui
+git submodule update --remote --init ui
 
 cd ui && npm install
 
