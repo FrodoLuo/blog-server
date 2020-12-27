@@ -22,10 +22,11 @@ func GetMediaByTag(tag string, page uint, pageSize uint) []models.Media {
 	return media
 }
 
-func CountMedia() uint {
+func CountMedia(tag string) uint {
 	var count uint
 	GetDB().
 		Model(&models.Media{}).
+		Where("tag LIKE ?", "%"+tag+"%").
 		Count(&count)
 	return count
 }

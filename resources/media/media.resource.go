@@ -39,5 +39,6 @@ func Post(ctx *gin.Context) {
 }
 
 func Count(ctx *gin.Context) {
-	ctx.JSON(200, services.CountMedia())
+	tag := ctx.DefaultQuery("tag", "")
+	ctx.JSON(200, services.CountMedia(tag))
 }
